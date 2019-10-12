@@ -39,8 +39,7 @@ def proof_of_work(last_proof):
 
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
-# last_proof_instance = last_proof_str
-# last_instance_hash = last_hash
+
 
 
 
@@ -51,9 +50,13 @@ def valid_proof(last_hash, proof):
 
     IE:  last_hash: ...AE9123456, new hash 123456888...
     """
+    try_proof = f"{proof}".encode()
 
-    # TODO: Your code here!
-    pass
+    try_hash = hashlib.sha256(try_proof).hexdigest()
+
+  
+    return last_hash[-6:]== try_hash[:6]
+    
 
 
 #------------------------------------------------------
