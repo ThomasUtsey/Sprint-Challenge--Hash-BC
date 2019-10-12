@@ -3,12 +3,26 @@ import requests
 
 import sys
 
+from json.decoder import JSONDecodeError
+
 from uuid import uuid4
 
 from timeit import default_timer as timer
 
 import random
 
+def valid_proof(last_hash, proof):
+    """
+    Validates the Proof:  Multi-ouroborus:  Do the last six characters of
+    the hash of the last proof match the first six characters of the proof?
+
+    IE:  last_hash: ...AE9123456, new hash 123456888...
+    """
+    try_proof = f"{proof}".encode()
+
+    try_hash = hashlib.sha256(try_proof).hexdigest()
+  
+    return last_hash[-6:]== try_hash[:6]
 
 def proof_of_work(last_proof):
     """
@@ -28,9 +42,7 @@ def proof_of_work(last_proof):
 
     last_proof_instance = f"{last_proof}".encode()
 
-    last_instance_hash = hashlib.sha256
-
-    (last_proof_instance).hexdigest()
+    last_instance_hash = hashlib.sha256(last_proof_instance).hexdigest()
 
     proof = random.randint(-sys.maxsize,sys.maxsize//1234567890)
 
@@ -43,19 +55,7 @@ def proof_of_work(last_proof):
 
 
 
-def valid_proof(last_hash, proof):
-    """
-    Validates the Proof:  Multi-ouroborus:  Do the last six characters of
-    the hash of the last proof match the first six characters of the proof?
 
-    IE:  last_hash: ...AE9123456, new hash 123456888...
-    """
-    try_proof = f"{proof}".encode()
-
-    try_hash = hashlib.sha256(try_proof).hexdigest()
-
-  
-    return last_hash[-6:]== try_hash[:6]
     
 
 
