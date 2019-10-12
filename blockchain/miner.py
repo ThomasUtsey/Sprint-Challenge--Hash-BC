@@ -20,15 +20,28 @@ def proof_of_work(last_proof):
     - Use the same method to generate SHA-256 hashes as the examples in class
     - Note:  We are adding the hash of the last proof to a number/nonce for the new proof
     """
-
     start = timer()
 
     print("Searching for next proof")
     proof = 0
     #  TODO: Your code here
 
+    last_proof_instance = f"{last_proof}".encode()
+
+    last_instance_hash = hashlib.sha256
+
+    (last_proof_instance).hexdigest()
+
+    proof = random.randint(-sys.maxsize,sys.maxsize//1234567890)
+
+    while not valid_proof(last_instance_hash,proof):
+        proof += random.randint(2**6,2**10)
+
     print("Proof found: " + str(proof) + " in " + str(timer() - start))
     return proof
+# last_proof_instance = last_proof_str
+# last_instance_hash = last_hash
+
 
 
 def valid_proof(last_hash, proof):
@@ -41,6 +54,9 @@ def valid_proof(last_hash, proof):
 
     # TODO: Your code here!
     pass
+
+
+#------------------------------------------------------
 
 
 if __name__ == '__main__':
