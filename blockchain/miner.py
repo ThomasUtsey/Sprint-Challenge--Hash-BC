@@ -3,7 +3,7 @@ import requests
 
 import sys
 
-from json.decoder import JSONDecodeError
+# from json.decoder import JSONDecodeError
 
 from uuid import uuid4
 
@@ -84,6 +84,7 @@ if __name__ == '__main__':
     while True:
         # Get the last proof from the server
         r = requests.get(url=node + "/last_proof")
+        print(r.content  , "----------------------------")
         data = r.json()
         new_proof = proof_of_work(data.get('proof'))
 
@@ -91,6 +92,7 @@ if __name__ == '__main__':
                      "id": id}
 
         r = requests.post(url=node + "/mine", json=post_data)
+        print(r)
         data = r.json()
         if data.get('message') == 'New Block Forged':
             coins_mined += 1
